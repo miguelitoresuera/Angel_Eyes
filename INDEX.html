@@ -1,0 +1,137 @@
+<html>
+	<head>
+		
+		<script text="javascript"> 
+				
+				var txtSource="miguel,resuera,09454;miguel,jemia,094534";
+				var sw=window.screen.width;
+				var sh=window.screen.height;
+				function render()
+				{
+				     document.getElementById("wrapper").style.width=360;
+					 document.getElementById("wrapper").style.height=800;
+					 document.getElementById("wrapper").style.msrgin="0 auto";
+					
+					self.moveTo((screen.availwidth.width-360)/2,(screen.availwidth.height-sh)/2);
+					self.resizeTo(sw,sh);
+					// document.getElementById("vv").style.width=300;
+					 //document.getElementById("vv").style.height=760;
+					
+					document.getElementById("vv").style.background="green";
+					
+					// document.getElementById("svalue").value=sw;
+					 
+				}
+				function searchNames(sv)
+				{
+					
+					var txtSearch=document.getElementById(sv).value;
+					var gn = "";
+
+					var ctr, count = 0;
+					var stop=false, found=false;
+					var scount = 0;
+					
+					while(count<txtSource.length && !found)
+					{
+						
+						if (txtSearch.length >= 1)
+						{
+							if (txtSearch[0] == txtSource[count])
+							{
+								scount = count;
+								ctr = 1;
+								stop = false;
+								
+								while (ctr<txtSearch.length && count<txtSource.length && !stop)
+								{
+									count++;
+									stop = (txtSearch[ctr] != txtSource[count]);
+									if (!stop) 
+										ctr++;
+										
+									if (ctr>=txtSearch.length)
+									{
+										v = "";
+										stop = false;
+										while (count < txtSource.length && !stop)
+										{
+											count++;
+											stop = txtSource[count] == ';';
+											if (!stop)
+												v += txtSource[count];
+										}
+						
+										gn += wholename(txtSource, scount, count) + ";";
+									}
+									
+					
+								}
+								
+							}
+						
+							
+						}
+						count++;
+						
+				
+					}
+					document.getElementById('fvalue').value=gn;
+					return gn;
+				}	
+				function create_table()
+				{
+				}
+				function wholename(src,sc,lcount)
+				{
+					ft = findsemi(src,sc);
+					wname = "";
+					for (i = ft; i < lcount; i++)
+						wname += src[i];
+					return wname;
+				}
+				function findsemi(txtSrc,scount)
+				{
+					var c = scount;
+					while (txtSrc[c] != ';' && c > 0)
+						c--;
+					if (c == 0)
+						return c;
+					else
+						return ++c;
+				}
+				
+		</script>
+		
+	</head>
+	<body onload="render()">
+		<div id="wrapper" style="margin:0 auto">
+			<div id="top">
+			
+			</div>
+			<div id="content" >
+				<table id="vv" align=center>
+					<tr>
+						<td>
+							<input type="text" id="svalue" placeholder="Enter Search" /> 
+						</td>
+					</tr>
+					<tr>
+					
+						<td>
+							<input type="text" id="fvalue" /> 
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="button" id="ff" value="SEARCH" onclick="searchNames('svalue')">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div id="bottom">
+			
+			</div>
+		</div>	
+	</body>
+</html>
